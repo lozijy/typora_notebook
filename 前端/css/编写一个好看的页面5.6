@@ -1,0 +1,182 @@
+学vue,却苦于不会写静态资源，怎么把界面弄好看?这是个问题
+
+### 最初
+
+html代码:
+
+```html
+<body>
+    <div id="root">
+        <div class="todo-container">
+          <div class="todo-wrap">
+              <input type="text" value="输入todo内容,按回车键确定">
+              <ul>
+                  <li><input type="checkbox"><span>抽烟</span></li>
+                  <li><input type="checkbox"><span>喝酒</span></li>
+                  <li><input type="checkbox"><span>烫头</span></li>
+              </ul>
+              <div>
+                  <label>
+                  <input type="checkbox">
+                  <span>已完成<span>0/</span>全部3</span>
+                  </label>
+                  <button>清除所有已完成</button>
+              </div>
+          </div>
+        </div>
+      </div>
+```
+
+容器的css:
+
+```css
+body {
+  background: #fff;
+}
+.todo-container {
+  width: 600px;//容器宽度为600px
+  margin: 0 auto;//让容器和浏览器上方间距为0,改成50px会是一个比较舒服的距离
+}
+.todo-container .todo-wrap {
+  padding: 10px;//与container边框的间距为10px
+  border: 1px solid #ddd;//让容器(container)边框显示出来
+  border-radius: 5px;//让container边框的边角变成圆角
+
+}
+```
+
+### 效果对比
+
+加入css前
+
+![image-20220506200145723](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220506200145723.png)
+
+加入css后
+
+![image-20220506200118446](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220506200118446.png)
+
+### 抽象
+
+最上面的输入框为header，中间显示数据的地方为list，每一条数据为item，最下面为footer
+
+header加个div,中间的list为ul不用加,最下面的footer加个div
+
+```html
+          <div id="todo-header">
+            <input type="text" value="输入todo内容,按回车键确定">
+          </div>
+```
+
+
+
+### tip
+
+大小可以用截屏软件来看,但是截屏软件好像比css中的大小要大一些,我css里写的28px，截屏软件截出来是47
+
+css:14 截屏:22
+
+### 开始加css
+
+#### header
+
+```css
+    .todo-header input {
+        width: 560px; //比container少了40,14//15比较舒服
+        height: 28px; //28定理
+        font-size: 14px; //为高度一半
+        border: 1px solid #ccc;//1px让边框变细,solid不知道,去掉solid后发现边框直接消失了
+        border-radius: 4px; //圆角,参数4
+        padding: 4px 7px; //字与边框的距离,前一个是字与顶部的距离，后一个是字与左侧的距离
+    }
+```
+
+##### div操作:
+
+
+
+本身:
+
+边框
+
+宽度
+
+存放位置
+
+圆角
+
+边框
+
+存放内容
+
+
+
+存放内容:
+
+字体大小
+
+存放内容的位置:左右，上下
+
+效果:
+
+![image-20220506225313900](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220506225313900.png)
+
+### main
+
+代码
+
+```css
+    .todo-main {
+        margin-left: 0px;//0px可以完美对齐
+        border: 1px solid #ddd;//边框变浅，与上面类似
+        border-radius: 2px; //变成圆角
+        padding: 0px;//和li的上下距离
+}
+```
+
+##### ul操作:
+
+本身
+
+位置:margin-left
+
+圆角:border-radius
+
+边框:border
+
+存放内容
+
+存放内容的位置:padding
+
+
+
+![image-20220506204142722](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220506204142722.png)
+
+
+
+### li
+
+代码
+
+```css
+    li{
+        list-style: none;//去掉无序列表前面的点
+        height: 36px;//上面输入框的大小是28,比他稍微大一点
+        line-height: 36px; //修改为0后发现与上边界之间的空隙没了，不知道有什么用
+        padding: 0 5px;//和左侧的距离是0，和上下侧的距离是5,所以字体大小是26px
+        border-bottom: 1px solid #ddd;//设置li之间的距离大小
+    }
+```
+
+##### li操作:
+
+去掉li前面的点
+
+修改每一行的高度
+
+修改显示内容与左边框的距离
+
+设置li之间的距离大小
+
+效果
+
+![image-20220506204821800](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220506204821800.png)
