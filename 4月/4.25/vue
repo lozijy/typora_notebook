@@ -1,0 +1,197 @@
+# Vue学习
+
+### 大纲
+
+**vue核心**
+
+**vue组件化编程**
+
+**使用vue脚手架**
+
+**vue中的ajax**
+
+**vuex**
+
+**vue-router**
+
+**vue ui组件库**
+
+### 文档
+
+官方文档:[https://cn.vuejs.org/index.html](官方文档)
+
+主题:https://cn.vuejs.org/resources/themes.html
+
+vue第三方库:https://cn.vuejs.org/resources/themes.html或者https://awesomejs.dev/for/vue/
+
+下载开发版本的vue.js
+
+下载开发者工具(firefox)
+
+我们可以直接有了vue的构造器
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script>
+        new Vue();
+    </script>
+</head>
+<body>
+
+</body>
+</html>
+```
+
+![image-20220425175544980](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220425175544980.png)
+
+
+
+vue.config
+
+`Vue.config` 是一个对象，包含 Vue 的全局配置。可以在启动应用之前修改下列 property：
+
+silent
+
+optionMergeStrategies
+
+producttip:设置false阻止vue在生成时生成生产提示
+
+![image-20220425180121400](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220425180121400.png)
+
+
+
+### hello,world
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+
+</head>
+<body>
+<!--准备一个容器-->
+<div id="root">
+    <h1>hello,{{name}}</h1>
+</div>
+</body>
+<script>
+    Vue.config.productionTip=false//阻止vue在启动时生成生产提示
+    //创建Vue实例
+    const x =new Vue({
+        el:"#root",//el指定当前vue实例用于给哪个容器服务，值通常为css选择器字符串,也可以用js的dom操作
+        data:{
+            name:"world!"
+        }
+    });
+
+</script>
+</html>
+```
+
+想让vue工作，必须new一个vue的对象,其中设置的el用来选中要操作的容器
+
+容器中的代码依然符合html规范，只不过加入了vue自己的语法。
+
+data放置相应的动态数据。
+
+不能实现一对多和多对一，若出现这种情况，会按从上到下的顺序一一对应。
+
+真实开发中只会有一个vue实例，并且会配合组件一起使用
+
+在{{xxx}}中要写js表达式，如:a,a+b,demo(1),x===y?"a":"b"不能写js语句
+
+
+
+问题:
+
+1.网页没有icon?
+
+vue开发者工具无法打开
+
+在F12中看，不是在右上角
+
+
+
+### 模板语句
+
+不加这些不会当成vue语句，而是普通的html+css+js
+
+- 插值语法{{}}      用于解析标签体内容
+
+- 指令语法:用于解析标签(标签属性，标签体内容，绑定事件)
+
+  Vue有很多指令都是v-xxx的形式，这里只是拿v-bind举个例子
+
+  v-bind能给标签中任何属性赋予动态的值，也可以简写为:
+
+```html
+    <a v-bind:href="url" >点我去百度哦</a>
+```
+
+用于解析标签
+
+
+
+### 层级属性
+
+```html
+    <h1>hello,{{name.toUpperCase()}}</h1>
+    <h1>hello,{{school.name.toUpperCase()}}</h1>
+<script>
+    Vue.config.productionTip=false//阻止vue在启动时生成生产提示
+    //创建Vue实例
+    const x =new Vue({
+        el:"#root",//el指定当前vue实例用于给哪个容器服务，值通常为css选择器字符串,也可以用js的dom操作
+        data:{
+            name:"world!",
+            url:"http://www.baidu.com",
+            school:{
+                name:"lozijy"
+            }
+        }
+    });
+
+</script>
+
+
+```
+
+![image-20220425202111353](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220425202111353.png)
+
+数据绑定
+
+```html
+<form>
+    <input type="text" v-bind:value="username"/>
+    <input type="text" v-model:value="username"/>
+</form>
+```
+
+数据绑定有两种绑定方式:
+
+- 单向绑定(v-bind):只能从data流向界面
+
+- 双向绑定(v-module):既可以从data流向界面，也可以从界面流向data。只能用于表单类元素上(input select radio  textarea)
+
+  ![image-20220425203308263](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220425203308263.png)
+
+![image-20220425203427233](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220425203427233.png)
+
+双向绑定不能修饰h1等不可从页面上改变内容的的标签
+
+
+
+简写:单向绑定中的v-bind可以用: 代替,双向绑定由于只针对value所以可以把v-model:value简写为v-value
+
+### el和data的两种写法
+
+### MVVM模型
+

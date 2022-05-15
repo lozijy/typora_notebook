@@ -1,0 +1,302 @@
+### 5.13
+
+每日一题(难度较低)
+
+![image-20220514213251733](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220514213251733.png)
+
+双指针
+
+```java
+import static java.lang.Math.abs;
+class Solution {
+    public boolean oneEditAway(String first, String second) {
+        int n = first.length();
+        int m = second.length();
+        int count = 0;
+        int i = 0;
+        //修改的情况
+        if (n == m) {
+            for (i = 0; i < n; i++) {
+                if (first.charAt(i) != second.charAt(i)) {
+                    count++;
+                }
+            }
+            if (count >= 2) {
+                return false;
+            }else
+                return true;
+        }
+        //删除或添加的情况
+            if (abs(n - m) == 1) {
+                int j = 0;
+
+                while (i < n && j < m && count < 2) {
+                    if (first.charAt(i) != second.charAt(j)) {
+                        count++;
+                        if (n > m) {
+                            i++;
+                        } else {
+                            j++;
+                        }
+                    }else{
+                    i++;
+                    j++;
+                    }
+                }
+                if (count >= 2) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        //其他情况下返回false
+        return false;
+    }
+}
+```
+
+也可考虑使用动态规划
+
+```java
+class Solution {
+    public boolean oneEditAway(String first, String second) {
+        int m = first.length(), n = second.length();
+        if (Math.abs(m - n) > 1) {
+            return false;
+        }
+
+        if (m != n) {
+            // dp[i][j]：表示first[0..i-1]和second[0..j-1]的最长公共子列的长度
+            int[][] dp = new int[m + 1][n + 1];
+            for (int i = 1; i <= m; i++) {
+                for (int j = 1; j <= n; j++) {
+                    if (first.charAt(i - 1) == second.charAt(j - 1)) {
+                        dp[i][j] = dp[i - 1][j - 1] + 1;
+                    } else {
+                        dp[i][j] = Math.max(dp[i - 1][	j], dp[i][j - 1]);
+                    }
+                }
+            }
+            return dp[m][n] == Math.min(m, n);
+        } else {
+            return canOneEdit(first, second);
+        }
+    }
+
+    private boolean canOneEdit(String s1, String s2) {
+        int count = 0;
+        for (int i = 0, len = s1.length(); i < len; i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                ++count;
+            }
+            if (count > 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+```
+
+![image-20220515110142710](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220515110142710.png)
+
+### 5.14
+
+11.盛最多水的容器(难度较低)
+
+![image-20220514213958749](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220514213958749.png)
+
+![image-20220514214015671](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220514214015671.png)
+
+双指针
+
+核心思想是贪心,尽可能让面积更大，面积的计算公式是底乘高，即
+
+p*math.min(height[l],height[j]),拥有两个变量，我们让p线性减小的情况下对hmin贪心，即比较height[l]和height[r]，让更小的进行移动。
+
+```java
+class Solution {
+    public int maxArea(int[] height) {
+        int ans=0;
+        int l=0;
+        int r=height.length-1;
+        while(l<=r){
+            ans=Math.max(Math.min(height[l],height[r])*(r-l),ans);
+            if(height[l]<=height[r]){
+                l++;
+            }else{
+                r--;
+            }
+        }
+        return ans;
+    }
+}
+```
+
+
+
+前缀和的简单应用
+
+原数列
+
+前缀和数列s[i]=a[1]+a[2]+...+a[i]
+
+运用前缀和数列求一个区间的和时间复杂度和减小到o(1),
+
+比如求a[l]+a[l+1]+...+a[r-1]+a[r],直接=s[r]-s[l-1]事件复杂度从o(n)减小到o(1)
+
+代码
+
+```java
+public static int search(int []nums,int l,int r){
+    int[] num2=new int[nums.length];
+    for (int i = 0; i < nums.length; i++) {
+        for (int j = 0; j <= i; j++) {
+            num2[i]+=nums[j];
+        }
+    }
+    int cnt=0;
+    cnt=num2[r-1]-num2[l-2];
+    return cnt;
+}
+```
+
+
+
+
+
+
+
+5.15
+
+每日一题
+
+最大三角形面积（几何算法）
+
+s=1/2\*dmid*(hmax-hmin)
+
+考虑使用贪心算法
+
+保证hmax-hmin最大的情况下保证dmid最大
+
+不考虑排序，不考虑递归，可以遍历，是一个二维数组，
+
+算了放弃了。
+
+算了，考虑dP算法，用dp\[i][0]表示不取这个点时的面积，dp\[i][1]取这个点时候的面积，和之前的不太一样，这里取点最多取三个，而且最前面的2个点无法构成三角形，且递推无法进行下去。
+
+
+
+题解:
+
+1.数学+枚举
+
+三角形面积公式
+
+![image-20220515110630388](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220515110630388.png)
+
+由于三个点是等价的(可互换),遍历时可以优化j从i+1开始，k从j+1开始
+
+```java
+class Solution {
+    public double largestTriangleArea(int[][] points) {
+        int n = points.length;
+        double ret = 0.0;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                for (int k = j + 1; k < n; k++) {
+                    ret = Math.max(ret, triangleArea(points[i][0], points[i][1], points[j][0], points[j][1], points[k][0], points[k][1]));
+                }
+            }
+        }
+        return ret;
+    }
+
+    public double triangleArea(int x1, int y1, int x2, int y2, int x3, int y3) {
+        return 0.5 * Math.abs(x1 * y2 + x2 * y3 + x3 * y1 - x1 * y3 - x2 * y1 - x3 * y2);
+    }
+}
+
+
+```
+
+2.凸包解法参考587.安装栅栏
+
+Andrew扫描法
+
+将凸包分为上凸壳和下凸壳
+
+![image-20220515120053893](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220515120053893.png)
+
+1.将所有点按2个指标进行排序，先按x坐标升序排列，再按y坐标升序排列
+
+2.用栈维护所有凸包上的点，或者说是凸包上的边，凸包起点元素会在栈中出现两次。
+
+3.分别从前往后和从后往前处理排序好的所有点，来分别画出凸包的两半部分，根据画的是第一部分还是第二部分，维护站内元的处理稍稍不同。
+
+a.画的是第一部分
+
+- 栈内元素少于2个，说明第一条边未画出，直接将元素添加到栈中
+- 元素不少于2个会考虑是否删掉栈顶的边，根据时针方向来决定是否删除
+- ![image-20220515120545943](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220515120545943.png)
+
+模板：
+
+```java
+class Solution {
+    int[] subtraction(int[] a, int[] b) { // 向量相减
+        return new int[]{a[0] - b[0], a[1] - b[1]};
+    }
+    double cross(int[] a, int[] b) { // 叉乘
+        return a[0] * b[1] - a[1] * b[0];
+    }
+    double getArea(int[] a, int[] b, int[] c) { // 向量 ab 转为 向量 ac 过程中扫过的面积
+        return cross(subtraction(b, a), subtraction(c, a));
+    }
+    public int[][] outerTrees(int[][] trees) {
+        //排序
+        Arrays.sort(trees, (a, b)->{
+            return a[0] != b[0] ? a[0] - b[0] : a[1] - b[1];
+        });
+        int n = trees.length, tp = 0;
+        int[] stk = new int[n + 10];
+        boolean[] vis = new boolean[n + 10];
+        stk[++tp] = 0; // 不标记起点
+        //维护栈
+        for (int i = 1; i < n; i++) {
+            int[] c = trees[i];
+            //tp大于2
+            while (tp >= 2) {
+                int[] a = trees[stk[tp - 1]], b = trees[stk[tp]];
+                if (getArea(a, b, c) > 0) vis[stk[tp--]] = false;
+                else break;
+            }
+            //tp小于2直接加
+            stk[++tp] = i;
+            vis[i] = true;
+        }
+        int size = tp;
+        for (int i = n - 1; i >= 0; i--) {
+            if (vis[i]) continue;
+            int[] c = trees[i];
+            while (tp > size) {
+                int[] a = trees[stk[tp - 1]], b = trees[stk[tp]];
+                if (getArea(a, b, c) > 0) tp--;
+                // vis[stk[tp--]] = false; // 非必须
+                else break;
+            }
+            stk[++tp] = i;
+            // vis[i] = true; // 非必须
+        }
+        int[][] ans = new int[tp - 1][2];
+        for (int i = 1; i < tp; i++) ans[i - 1] = trees[stk[i]];
+        return ans;
+    }
+}
+```
+
+
+
+
+
