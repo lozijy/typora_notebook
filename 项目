@@ -1,0 +1,13 @@
+![image-20220428233526226](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220428233526226.png)
+
+![image-20220507192204939](https://raw.githubusercontent.com/lozijy/github_-/main/image-20220507192204939.png)
+
+未实现功能:
+
+1.已完成，全部的计算属性是写死的
+
+2.checkAll实现方法.
+
+
+
+考虑用监视方法修改数据的值
