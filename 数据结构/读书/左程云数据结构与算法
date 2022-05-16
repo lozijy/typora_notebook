@@ -92,7 +92,9 @@ public static void postOrderTraveral(TreeNode node){
     }
 ```
 
-中序遍历:把所有左节点放入栈，然后依次pop，pop后若有右节点则把右节点push
+中序遍历:
+
+把所有左节点放入栈，然后依次pop，pop后若有右节点则把右节点push
 
 ```java
 //中序遍历
@@ -138,6 +140,8 @@ public static void inOrderTraveral3(TreeNode head){
 
 后序遍历：
 
+创建2个栈，第一个栈存放顺序:中，左，右，那么第二个栈存放顺序为中，右，左，取出顺序为左，右，中
+
 ```java
 //后序遍历
 public static void postOrderTraveral2(TreeNode head){
@@ -165,5 +169,31 @@ public static void postOrderTraveral2(TreeNode head){
 
 3.非递归实现层序遍历
 
+使用队列,linklist可以直接作为队列add入队，poll出队，
+
+依次把中，左，右入队即可.
+
+```java
+//层序遍历
+public static void levelOrderTraveral(TreeNode head){
+    if(head!=null){
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(head);
+        while(!queue.isEmpty()){
+            head=queue.poll();
+            System.out.println(head.value+" ");
+            if(head.leftChild!=null){
+                queue.add(head.leftChild);
+            }
+            if(head.rightChild!=null){
+                queue.add(head.rightChild);
+            }
+        }
+    }
+}
+```
+
 4.面试题:打印出一棵树的最大宽度
+
+关键是记录哪些节点是同一层级，使用hashmap记录
 
