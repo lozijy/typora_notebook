@@ -329,19 +329,21 @@ pets: [cat,dog,pig]
 
 注意:空格不能丢
 
-
-
-
-
-springboot可以配置什么东西呢
-
-官方的配置太多了
-
-了解原理:一通百通
+yaml中可以使用el表达式
 
 
 
 ## 给属性赋值的几种方式
+
+### 1.@Configuationproperties(prefix="")+yaml
+
+@Component//作为组件，可以被扫描application扫描
+
+@Configuationproperties(prefix=" ")//将实体对象与实体类绑定
+
+@Autowired//自动装配
+
+@
 
 yaml可以直接给实体类赋值
 
@@ -527,3 +529,57 @@ class DemoApplicationTests {
 
 }
 ```
+
+### @value
+
+### @PropertySource
+
+@PropertySource(value="classpath:xxx.properties")
+
+## JSR303校验
+
+@Validated
+
+@Email
+
+
+
+## 多环境配置以及配置文件的位置
+
+优先级从上之下依次减小
+
+```
+file:/config/
+
+file:./
+
+classpath/config/
+
+classpath/..
+```
+
+可以配置不同运行情形下的不同配置，有默认,dev,test
+
+![image-20220516234609784](C:/Users/34488/AppData/Roaming/Typora/typora-user-images/image-20220516234609784.png)
+
+```properties
+server.port=8080
+spring.profiles.active=dev//用于启动不同的配置
+```
+
+也可以通过yaml直接在一个配置里面配置不同环境下的配置
+
+```yaml
+server:
+  port: 8080
+spring:
+  active: dev
+---
+server:
+  port: 8082
+spring:
+  profiles: dev
+```
+
+使用---分割不同环境的配置
+
