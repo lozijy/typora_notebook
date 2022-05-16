@@ -94,6 +94,48 @@ public static void postOrderTraveral(TreeNode node){
 
 中序遍历:把所有左节点放入栈，然后依次pop，pop后若有右节点则把右节点push
 
+```java
+//中序遍历
+public static void inOrderTraveral2(TreeNode head){
+    if(head!=null){
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(head);
+        while(head.leftChild!=null){
+            head=head.leftChild;
+            stack.push(head);
+        }
+        while(!stack.isEmpty()){
+            head=stack.pop();
+            System.out.println(head.value+" ");
+            while(head.rightChild!=null){
+                head=head.rightChild;
+                stack.push(head);
+            }
+        }
+    }
+}
+```
+
+老师给的
+
+```java
+public static void inOrderTraveral3(TreeNode head){
+    if(head !=null){
+        Stack<TreeNode> stack = new Stack<>();
+        while(!stack.isEmpty()||head !=null){
+            if(head!=null){
+                stack.push(head);
+                head=head.leftChild;
+            }else {
+                head=stack.pop();
+                System.out.println(head.value+" ");
+                head=head.rightChild;
+            }
+        }
+    }
+}
+```
+
 后序遍历：
 
 ```java
