@@ -15,3 +15,30 @@ int[]arr=new int[3];长度必须规定
 ```
 
 栈:
+
+
+
+堆:
+
+堆加比较器实现大根堆，小根堆
+
+```java
+class Solution {
+    public int minStoneSum(int[] piles, int k) {
+    	PriorityQueue<Integer> heap = new PriorityQueue<>(new myComparator());
+    } 
+}
+
+
+
+class myComparator implements  Comparator<Integer>{
+    @Override
+    public int compare(Integer o1, Integer o2) {
+        return o2-o1;
+    }
+}
+```
+
+
+
+比较器:
