@@ -12,6 +12,7 @@ List:size(),get(index)
 ```java
 return new int[]{1,2,3};
 int[]arr=new int[3];长度必须规定
+    Arrays.stream(dp).sum()将数组中所有的数相加
 ```
 
 栈:
@@ -42,3 +43,18 @@ class myComparator implements  Comparator<Integer>{
 
 
 比较器:
+
+
+
+红黑树:
+
+```java
+        TreeMap<Integer, Integer> treeMap = new TreeMap<>();
+		//放入键值对
+		treeMap.put(1,2);
+		//返回大于给定键的最小键
+		treeMap.floorKey(K key);
+		//返回小于给定键的最大键
+		treeMap.ceilingKey(K key);
+```
+
