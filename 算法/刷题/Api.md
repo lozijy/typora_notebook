@@ -58,3 +58,44 @@ class myComparator implements  Comparator<Integer>{
 		treeMap.ceilingKey(K key);
 ```
 
+
+
+类型转换:
+
+“int 变为 char 一种是自动转换,如char c = 97,会自动的将int类型的96转换成char的‘a’
+
+String转int:在Java 中要将 String 类型转化为 int 类型时,需要使用 Integer 类中的 parseInt() 方法或者 valueOf() 方法进行转换.
+
+char转int:
+
+Character.getNumericValue()
+
+String转int:
+
+Integer.valueOf()
+
+
+
+
+
+
+
+Character:
+
+```java
+Character.isDigit;
+Character.isAl
+
+    
+```
+
+String:
+
+检查字符串是否为空格
+
+```java
+String ans="1,23,";
+ans.splite("")
+ans.isBlank();
+```
+
