@@ -219,3 +219,10 @@ success
 1.use the physical direction
 
 2.reboot the terminal
+
+
+
+```shell
+fatal: The current branch master has no upstream branch. 是因为本地当前分支没有和远端的分支进行相关联。 1：运行 git push --set-upstream origin master。 其中的origin是你在clone远程代码时，git为你创建的指向这个远程代码库的标签，它指向repository。 master是你远程的branch，可以用git branch -a查看所有分支，远程分支是红色的部分。 然后确定好这两个值后，将值换掉即可。 使用这种方式的前提是需要确保你的远程分支是存在的，不然的话 也无法关联。 这种方式无需确保远端相应分支存在，因为不存在的话，会自动创建该分支并与本地分支进行关联。
+```
+
