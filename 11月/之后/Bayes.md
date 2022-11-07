@@ -45,6 +45,8 @@ def __init__(self)//初始化变量
 def load(self,path)//加载数据集，对不同的文本格式有不同的处理
 ```
 
+![image-20221107164943208](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221107164943208.png)
+
 ```python
 def discretization(self,col)//离散化
 ```
@@ -76,3 +78,22 @@ def main(self)
 ```
 
 4.不足:由于是西瓜书上的内容，数据量较小且没有测试集，所以未做数据预处理和拉普拉斯平滑，且无法判断训练后预测的正确率
+
+
+
+
+
+
+
+
+
+混淆矩阵是评判模型结果的指标，属于模型评估的一部分。此外，混淆矩阵多用于判断分类器（Classifier）的优劣，适用于分类型的数据模型，如分类树（Classification Tree）、逻辑回归（Logistic Regression）、线性判别分析（Linear Discriminant Analysis）等方法。
+
+在分类型模型评判的指标中，常见的方法有如下三种：
+
+混淆矩阵（也称误差矩阵，Confusion Matrix）
+ROC曲线
+AUC面积
+本篇主要介绍第一种方法，即混淆矩阵，也称误差矩阵。
+
+此方法在整个数据分析与挖掘体系中的位置如下图所示。
