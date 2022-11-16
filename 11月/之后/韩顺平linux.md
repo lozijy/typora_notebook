@@ -1,3 +1,21 @@
+###　前置内容
+
+我大一的时候买了一个服务器，由于不熟悉linux导致我的服务器用的很烂，现在重拾记忆中的博客,并且把linux用好
+
+首先明确:在服务器中直接java -jar halo.jar 是不好的，因为它并不是以守护进程的形式运行在服务器中，当我退出远程连接后它就自己停止运行了，所以我们使用了一个命令
+
+```shell
+nohup java -jar halo.jar &
+```
+
+这样就可以了
+
+关于我的服务器
+
+
+
+
+
 ### 目录结构
 
 ![image-20221115235028280](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221115235028280.png)
@@ -98,17 +116,218 @@ G游戏结束，gg good game 重新开始
 
 1.
 
+Linux是一个多用户的操作系统，只有一个root用户，这个用户可以创建多个用户，任何人想要访问共享资源，则必须要以一个用户登录上
+
+添加用户:
+
+```shell
+useradd king 创建一个用户
+
+adduser king ubuntu下创建一个用户，并在home下创建一个文件夹
+
+passwd king 给king用户设置新密码
+```
+
+删除用户:
+
+```shell
+userdel king  删除用户King，但保留home下的文件
+userdel -r king 递归并删除king用户在home下的所有文件
+```
+
+一般来讲我们不使用userdel -d king 会把家目录下的文件保留下来
+
 2.
+
+查询用户信息
+
+```shell
+id 用户名
+返回这gid 组
+```
+
+切换用户
+
+```shell
+su - 切换用户名
+su 切换到root用户
+
+
+logout退出当前账户
+或
+exit
+在远程连接的形式下使用logout,在桌面的形式下在终端中使用exit
+
+whoami查看当前登录的是哪个用户
+```
+
+从权限高的用户切换到权限低的用户不需要输入密码
+
+从权限低的用户切换到平级用户或高级用户需要输入对应的用户密码
 
 3.
 
-4.
+用户组
+
+类似于角色，系统可以对有共性(权限)的多个用户进行统一的管理
+
+新增组:
+
+groupadd 组名
+
+删除组
+
+groupdel 组名
+
+在删除组之前要把用户移除
+
+增加用户时加上组
+
+useradd -g 用户组 用户名
+
+修改用户的组
+
+usermod -g 用户组 用户名
+
+
+
+用户和组相关文件
+
+增加组之后会有配置文件保留用户的各种信息
+
+
+
+/etc/passwd文件 记录用户的各种信息
+
+每行的信息:用户名:用户标识号:组标识号:注释性描述:主目录：登录shell
+
+**什么是shell? 当我们输入一个比如cd的指令时内核并不知道我们在说什么，这是由翻译官Shell对指令进行解释，解释后再把发送指令给内核，**
+
+**shell的种类很多bash,tsh,csh我们一般用的是bash**
+
+
+
+![image-20221116140628977](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221116140628977.png)
+
+![image-20221116140731075](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221116140731075.png)
+
+
+
+/etc/shadow文件 口令的配置文件，
+
+每行的含义:登录名:加密口令:最后一次修改时间:最小时间间隔:最大时间间隔:警告时间:不活动时间:失效时间:标志
+
+
+
+/etc/group文件 组group的配置文件，记录Linux包含的组的信息
+
+每行的含义:组名:口令:组标识号:组内用户列表
+
+![image-20221116140436847](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221116140436847.png)
+
+
 
 ### 运行级别
 
+运行级别:
+
+0:关机
+
+1：单用户[找回丢失密码]
+
+2.多用户状态没有网络服务
+
+3.多用户状态有网络服务
+
+4.系统未使用保留给用户
+
+5.图形界面
+
+6.系统重启
+
+常用运行级别是3和5，也可以指定默认运行级别
+
+3不用图形界面，可以节省很多资源
+
+2和4一般不用
+
+
+
+init[0123456]应用案例:通过init来切换不同的运行级别，比如动5-3,然后关机
+
+输入init 3没有图形界面
+
+init 5可以切回到图形界面
+
+输入init 0关机
+
+输入init 6 重新启动
+
+指定默认级别
+
+centos7以前是在/etc/inittab文件中修改
+
+后面进行了简化: 
+
+
+
+![image-20221116143612166](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221116143612166.png)
+
+
+
+设置默认运行级别为3
+
+![image-20221116143734199](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221116143734199.png)
+
+![image-20221116143825164](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221116143825164.png)
+
+改变后重启它就会直接进入级别3（无图形界面）
+
+reboot
+
+在工作中肯定是级别3
+
 ### 找回root密码 
 
+首先重启系统进入开机界面，在界面中按e进入编辑界面，
+
+进入编辑界面后使用键盘上的上下键把光标往下移动，找到以linux16开头内容所在的行数，在行的最后面输入:init=/bin/sh如图
+
+接着输入完成后直接按快捷键Ctrl+x进入单用户模式
+
+接着在光标闪烁处输入 mount -o remount,rw /(注意，各个单词之间有空格)，完成后按键盘的回车键(Enter)如图
+
+在最新的一行后输入passwd完成后按键盘的回车键，输入密码，然后再确认密码即可
+
+这个必须是服务器本机才能操作，不可以远程
+
 ### 帮助指令
+
+man ls 获得帮助信息
+
+```shell
+man ls
+```
+
+
+
+可以查看ls的相关用法
+
+![image-20221116151240482](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221116151240482.png)
+
+help指令 
+
+基本语法:help (获得shell内置命令的帮助信息)
+
+```shell
+help
+```
+
+
+
+![image-20221116151343839](C:\Users\lonux\AppData\Roaming\Typora\typora-user-images\image-20221116151343839.png)
+
+
 
 ### 文件目录指令
 
