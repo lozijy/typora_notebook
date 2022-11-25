@@ -4,7 +4,7 @@
 
 为了贯彻落实这个理念，一个终生成长的个人知识库是必要的。
 
-在尝试多种形式后，本人决定做一个最简单的topora+git+github形式的个人知识库，
+在尝试多种形式后，本人决定做一个最简单的typora+git+github形式的个人知识库，
 
 好处是实现了ipad+pc+移动端多端共享的云端仓库，并且可拓展性很高，利于我们从源码上进行多种拓展.
 
@@ -16,4 +16,4 @@
 
 
 
-~~In my hand ,is a pen write a poem of me and you.~~
+~~In my hand ,is a pen that will write a poem of me and you.~~
