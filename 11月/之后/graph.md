@@ -244,9 +244,25 @@ V-S尚未确定最短路径的顶点的集合
 
 
 
+
+
 #### FLOYD弗洛伊德算法
 
+(了解即可)
 
+思想:
+
+vi到vj
+
+1.首先考虑从arcs[i][j]，但这可能不是最短路径
+
+2.考虑vi,v0,vj是否存在，若存在是否存在小于vi,vj，取更小的
+
+3.再考虑vi,v0,v1,vj是否存在
+
+4.迭代为vi到vj不超过k-1长的路径长度
+
+时间复杂度n的三次方，这是个时间复杂度很高的算法
 
 
 
@@ -254,8 +270,103 @@ V-S尚未确定最短路径的顶点的集合
 
 ### 最小支持树
 
-#### prim
+在网络的多个生成树中寻找一个各边权值最小的生成树
 
-#### krusal
+n个顶点由n-1条边连接起来
+
+这是一个贪婪算法
+
+如果一条边是连接两个顶点的所有边中权值最小的边，那么它一定在最小生成树上
+
+破圈法
+
+#### Prim
+
+将边归并，与边数无关，适用于稠密网络
+
+![image-20221126140051778](https://raw.githubusercontent.com/lozijy/image/main/image-20221126140051778.png)
+
+![image-20221126140152881](https://raw.githubusercontent.com/lozijy/image/main/image-20221126140152881.png)
+
+使用数组+标号法实现
+
+时间复杂度O（n方）
+
+#### Kruskal
+
+将顶点归并，归并集，并查集，适用于稀疏网络
+
+![image-20221126140725140](https://raw.githubusercontent.com/lozijy/image/main/image-20221126140725140.png)
+
+这是唯一一个时间复杂度和节点数无关只与边的个数有关的算法
+
+由于两两归并的思想，所以时间复杂度与log有关
+
+时间复杂度O(eloge)
 
 ### 图的应用
+
+
+
+### 习题
+
+![image-20221126141840519](https://raw.githubusercontent.com/lozijy/image/main/image-20221126141840519.png)
+
+![image-20221126141940582](https://raw.githubusercontent.com/lozijy/image/main/image-20221126141940582.png)
+
+16》 n-1 2（n-1）
+
+![image-20221126142033667](https://raw.githubusercontent.com/lozijy/image/main/image-20221126142033667.png)
+
+DAC
+
+![image-20221126142140684](https://raw.githubusercontent.com/lozijy/image/main/image-20221126142140684.png)
+
+![image-20221126142233125](https://raw.githubusercontent.com/lozijy/image/main/image-20221126142233125.png)
+
+![image-20221126142351493](https://raw.githubusercontent.com/lozijy/image/main/image-20221126142351493.png)
+
+4.栈 队列 BFS
+
+![image-20221126142437302](https://raw.githubusercontent.com/lozijy/image/main/image-20221126142437302.png)
+
+不要求
+
+![image-20221126142524060](https://raw.githubusercontent.com/lozijy/image/main/image-20221126142524060.png)
+
+4. 拓扑排序，如果是无向连通图，边的个数大于n，则无环，顶点度大于2，则一定有回路，深度优先遍历判断
+5. V4V3V2V0V1V6V5
+
+![image-20221126142932894](https://raw.githubusercontent.com/lozijy/image/main/image-20221126142932894.png)
+
+15264 21
+
+
+
+![image-20221126143013849](https://raw.githubusercontent.com/lozijy/image/main/image-20221126143013849.png)
+
+10 15 17 17
+
+
+
+15 XX 25 29 29
+
+
+
+![image-20221126143108821](https://raw.githubusercontent.com/lozijy/image/main/image-20221126143108821.png)
+
+Floyd算法矩阵如下 
+
+0 5 7 3
+
+ 6 0 5 9
+
+1604
+
+5240
+
+![image-20221126143220456](https://raw.githubusercontent.com/lozijy/image/main/image-20221126143220456.png)
+
+2. 候选点集的数量永远为1时 O（n方） O（eloge）
+
+   
