@@ -98,7 +98,7 @@ When you edit on GitBook, every change request merge will result in a commit to 
 
 When you commit to GitHub, every commit will be synced to your GitBook space.
 
+![image-20221128175544079](https://raw.githubusercontent.com/lozijy/image/main/image-20221128175544079.png)
 
-
-
+成功!
 
