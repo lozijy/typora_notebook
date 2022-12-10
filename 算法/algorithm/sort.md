@@ -64,5 +64,28 @@
 辅助空间O(1)
 简单
 
+## 堆排序
 
+![image-20221209193527047](https://raw.githubusercontent.com/lozijy/image/main/image-20221209193527047.png)
 
+![image-20221209201802623](https://raw.githubusercontent.com/lozijy/image/main/image-20221209201802623.png)
+
+![image-20221209201811387](https://raw.githubusercontent.com/lozijy/image/main/image-20221209201811387.png)
+
+![image-20221209201940262](https://raw.githubusercontent.com/lozijy/image/main/image-20221209201940262.png)
+
+![image-20221209202049644](https://raw.githubusercontent.com/lozijy/image/main/image-20221209202049644.png)
+
+![image-20221209202238433](https://raw.githubusercontent.com/lozijy/image/main/image-20221209202238433.png)
+
+![image-20221209202324329](https://raw.githubusercontent.com/lozijy/image/main/image-20221209202324329.png)
+
+![image-20221209202534335](https://raw.githubusercontent.com/lozijy/image/main/image-20221209202534335.png)
+
+## 分布排序
+
+![image-20221209202644648](https://raw.githubusercontent.com/lozijy/image/main/image-20221209202644648.png)
+
+![image-20221209203039190](https://raw.githubusercontent.com/lozijy/image/main/image-20221209203039190.png)
+
+![image-20221209203212615](https://raw.githubusercontent.com/lozijy/image/main/image-20221209203212615.png)
